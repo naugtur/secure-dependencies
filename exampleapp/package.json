@@ -4,7 +4,7 @@
   "description": "An app which exists only to have dependencies",
   "main": "index.js",
   "scripts": {
-    "start": "secure-bundle-dependencies"
+    "start": "secure-dependencies"
   },
   "author": "",
   "license": "MIT",
@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "mocha": "^2.5.3",
-    "secure-bundle-dependencies": "file:..",
+    "secure-dependencies": "file:..",
     "webpack": "^1.13.1"
   }
 }

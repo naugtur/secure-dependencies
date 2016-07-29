@@ -1,14 +1,14 @@
 {
-  "name": "secure-bundle-dependencies",
+  "name": "secure-dependencies",
   "version": "1.0.0",
   "description": "bundles dependencies for maximum security of deployment",
   "main": "index.js",
   "bin": {
-    "secure-bundle-dependencies": "./index.js"
+    "secure-dependencies": "./index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/naugtur/secure-bundle-dependencies.git"
+    "url": "git+https://github.com/naugtur/secure-dependencies.git"
   },
   "keywords": [
     "security",
@@ -21,9 +21,9 @@
   "author": "naugtur@gmail.com",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/naugtur/secure-bundle-dependencies/issues"
+    "url": "https://github.com/naugtur/secure-dependencies/issues"
   },
-  "homepage": "https://github.com/naugtur/secure-bundle-dependencies#readme",
+  "homepage": "https://github.com/naugtur/secure-dependencies#readme",
   "dependencies": {
     "fs-extra": "^0.30.0",
     "nsp": "^2.6.1",
