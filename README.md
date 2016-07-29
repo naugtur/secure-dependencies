@@ -3,6 +3,13 @@
 
 Creates a tarball of your app dependencies checked with node security platform. Just unpack it in production and you're ready to go.
 
+## Why
+
+- Even with shrinkwrap, you cannot be sure `npm install` in production will always deliver what you need
+- Running `npm install` is a defacto remote code execution vulnerability
+- Not convinced? Read this https://ponyfoo.com/articles/npm-meltdown-security-concerns
+- If you keep node_modules in repo and run `npm rebuild` you still run postinstall scripts - effectively bash commands with your user credentials and access to sudo. You can turn them off, but then some binaries will not build correctly.
+- Also, `npm install` takes more time than `scp | untar`
 
 ## Usage
 
@@ -13,13 +20,25 @@ npm install secure-dependencies --save-dev
 Then in your package.json scripts section you can call it
 ```
 "scripts": {
-    "bundle": "secure-dependencies"
-  },
+  "bundle": "secure-dependencies"
+},
 ```
 
-`{appname}-{version}.tgz` is produced with all production dependencies unless `nsp check` complains
+`{appname}-{version}.tgz` is produced with all production dependencies unless `nsp check` complains.
 
 *Become left-pad proof!*
+
+## What does it do?
+In summary:
+```
+npm install --production
+npm prune
+npm dedupe
+nsp check
+tar
+```
+
+But don't trust me with your security, read the code!
 
 ## Try it out
 
@@ -29,3 +48,11 @@ npm install
 npm start
 ```
 exampleapp-1.0.0.tgz is created
+
+
+# TODO
+add paranoid mode
+add scp as artifact repository
+add deployment oneliner example
+
+# Apache-2.0 License

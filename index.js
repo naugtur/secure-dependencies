@@ -1,30 +1,54 @@
 #!/usr/bin/env node
+
+// Hi, great to see you!
+// Everyone should read code they run.
+// You deserve a medal
+// |@@@@|     |####|
+// \@@@@|     |####/
+//  \@@@|     |###/
+//   `@@|_____|##'
+//       \ 0 /
+//     .-'''''-.
+//   .'  * * *  `.
+//  :  *DEV-OPS*  :
+// : ~ A W A R D ~ :
+//  :  *       *  :
+//   `.  * * *  .'
+//     `-.....-'
+
 const spawnShell = require('spawn-shell')
 const path = require('path')
 const console = require('console')
 const fs = require('fs-extra')
 const targz = require('tar.gz')
 
-
-const dir = path.resolve(process.cwd(), 'secure-node-bundle')
+//Prepare a temporary bundle folder
+const dir = path.resolve(process.cwd(), 'secure-dependencies-bundle')
 fs.ensureDirSync(dir);
 fs.emptyDirSync(dir)
+
+//npm --prefix requires package.json to be in the location given
 fs.copySync('package.json', path.resolve(dir, './package.json'));
+
+//Shrinkwrap is important, we don't want to silently skip it
 if(fs.existsSync('npm-shrinkwrap.json')){
     fs.copySync('npm-shrinkwrap.json', path.resolve(dir, './npm-shrinkwrap.json'));
 }
+//but shrinkwrap is uncomfortable for daily development, so you can store it in a file that only this bundler will use.
+//TODO: make this configurable with commandline argument
 if(fs.existsSync('npm-shrinkwrap-production.json')){
     fs.copySync('npm-shrinkwrap-production.json', path.resolve(dir, './npm-shrinkwrap.json'));
 }
-
 
 const pkg = require(path.resolve(dir, './package.json'))
 const appname = pkg.name
 const version = pkg.version
 
 const tarball = path.resolve(process.cwd(), `./${appname}-${version}.tgz`)
+//Get rid of the previous tarball, because I'm afraid tar could merge instead of overwriting
 fs.removeSync(tarball)
 
+//The main purpose of this is to reject the promise based on exit code
 function promiseCommand(command, opts) {
     console.log('>>>>', command)
     return spawnShell(command, opts).exitPromise
@@ -39,17 +63,19 @@ function promiseCommand(command, opts) {
 
 Promise.resolve()
     .then(() => promiseCommand(`npm install --production --no-optional --unsafe-perm=false --prefix=${dir}`))
+    //Gues what, almost nothing supports --prefix
     .then(() => promiseCommand(`cd ${dir} && npm prune --production`))
     .then(() => promiseCommand(`cd ${dir} && npm dedupe`))
-    .then(() => promiseCommand(`cd ${dir} && npm install nsp`))
+    .then(() => promiseCommand(`cd ${dir} && npm install nsp`)) //Don't worry, I won't put it in the bundle
     .then(() => promiseCommand(`cd ${dir} && nsp check`))
-    .then(() => promiseCommand(`cd ${dir} && npm prune --production`))
+    .then(() => promiseCommand(`cd ${dir} && npm prune --production`)) //I'm repeating this to get rid of nsp. Also, you don't have to trust that nsp doesn't add unwanted dependencies
     .then(() => targz().compress(path.resolve(dir, 'node_modules'), tarball))
     .then(() => {
         fs.removeSync(dir)
-        console.log('done')
+        console.log('Done. Here is your tarball:')
+        console.log(tarball)
     })
     .catch((err)=>{
         console.log(err)
-        exit(0)
+        exit(1)
     })
