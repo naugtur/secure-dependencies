@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/naugtur/secure-node-deployment.git"
+    "url": "git+https://github.com/naugtur/secure-bundle-dependencies.git"
   },
   "keywords": [
     "security",
@@ -21,9 +21,9 @@
   "author": "naugtur@gmail.com",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/naugtur/secure-node-deployment/issues"
+    "url": "https://github.com/naugtur/secure-bundle-dependencies/issues"
   },
-  "homepage": "https://github.com/naugtur/secure-node-deployment#readme",
+  "homepage": "https://github.com/naugtur/secure-bundle-dependencies#readme",
   "dependencies": {
     "fs-extra": "^0.30.0",
     "nsp": "^2.6.1",
