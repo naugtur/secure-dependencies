@@ -1,0 +1,21 @@
+{
+  "name": "exampleapp",
+  "version": "1.0.0",
+  "description": "An app which exists only to have dependencies",
+  "main": "index.js",
+  "scripts": {
+    "start": "secure-bundle-dependencies"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "heapdump": "^0.3.7",
+    "ioredis": "^2.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "secure-bundle-dependencies": "file:..",
+    "webpack": "^1.13.1"
+  }
+}

@@ -25,10 +25,8 @@
   },
   "homepage": "https://github.com/naugtur/secure-node-deployment#readme",
   "dependencies": {
-    "es6-promisify": "^4.1.0",
     "fs-extra": "^0.30.0",
     "nsp": "^2.6.1",
-    "promisify-object": "^1.2.1",
     "spawn-shell": "^1.1.2",
     "tar.gz": "^1.0.5"
   }
