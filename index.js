@@ -66,9 +66,7 @@ Promise.resolve()
     //Gues what, almost nothing supports --prefix
     .then(() => promiseCommand(`cd ${dir} && npm prune --production`))
     .then(() => promiseCommand(`cd ${dir} && npm dedupe`))
-    .then(() => promiseCommand(`cd ${dir} && npm install nsp`)) //Don't worry, I won't put it in the bundle
-    .then(() => promiseCommand(`cd ${dir} && nsp check`))
-    .then(() => promiseCommand(`cd ${dir} && npm prune --production`)) //I'm repeating this to get rid of nsp. Also, you don't have to trust that nsp doesn't add unwanted dependencies
+    .then(() => promiseCommand(`cd ${dir} && node ${__dirname}/node_modules/.bin/nsp check`))
     .then(() => targz().compress(path.resolve(dir, 'node_modules'), tarball))
     .then(() => {
         fs.removeSync(dir)
