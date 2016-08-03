@@ -1,6 +1,6 @@
 {
   "name": "secure-dependencies",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "bundles dependencies for maximum security of deployment",
   "main": "index.js",
   "bin": {
