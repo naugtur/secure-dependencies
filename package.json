@@ -4,7 +4,8 @@
   "description": "bundles dependencies for maximum security of deployment",
   "main": "index.js",
   "bin": {
-    "secure-dependencies": "./index.js"
+    "secure-dependencies": "./index.js",
+    "get-bundle-name": "./getname.js"
   },
   "repository": {
     "type": "git",
