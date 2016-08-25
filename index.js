@@ -21,6 +21,7 @@ const path = require('path')
 const console = require('console')
 const fs = require('fs-extra')
 const targz = require('tar.gz')
+const common = require('./common')
 
 //Prepare a temporary bundle folder
 const dir = path.resolve(process.cwd(), 'secure-dependencies-bundle')
@@ -31,21 +32,17 @@ fs.emptyDirSync(dir)
 fs.copySync('package.json', path.resolve(dir, './package.json'));
 
 //Shrinkwrap is important, we don't want to silently skip it
-if(fs.existsSync('npm-shrinkwrap.json')){
+if (fs.existsSync('npm-shrinkwrap.json')) {
     fs.copySync('npm-shrinkwrap.json', path.resolve(dir, './npm-shrinkwrap.json'));
 }
 //but shrinkwrap is uncomfortable for daily development, so you can store it in a file that only this bundler will use.
 //TODO: make this configurable with commandline argument
-if(fs.existsSync('npm-shrinkwrap-production.json')){
+if (fs.existsSync('npm-shrinkwrap-production.json')) {
     fs.copySync('npm-shrinkwrap-production.json', path.resolve(dir, './npm-shrinkwrap.json'));
 }
 
-const pkg = require(path.resolve(dir, './package.json'))
-const appname = pkg.name
-const version = pkg.version
-
-const tarball = path.resolve(process.cwd(), `./${appname}-${version}.tgz`)
-//Get rid of the previous tarball, because I'm afraid tar could merge instead of overwriting
+const tarball = path.resolve(process.cwd(), common.getTarballName(dir))
+    //Get rid of the previous tarball, because I'm afraid tar could merge instead of overwriting
 fs.removeSync(tarball)
 
 //The main purpose of this is to reject the promise based on exit code
@@ -73,7 +70,7 @@ Promise.resolve()
         console.log('Done. Here is your tarball:')
         console.log(tarball)
     })
-    .catch((err)=>{
+    .catch((err) => {
         console.log(err)
         exit(1)
     })

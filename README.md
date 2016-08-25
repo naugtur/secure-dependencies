@@ -49,6 +49,21 @@ npm start
 ```
 exampleapp-1.0.0.tgz is created
 
+## Get bundle name
+
+If you're scripting your deployment with configuration managers (or bash) it's often annoying to deal with parsing package.json
+
+secure-dependencies exposes a tiny script that generates the filename. You can use it to figure out what the bundle name is based on package.json in current directory
+```
+"scripts": {
+  "bundle-name": "get-bundle-name"
+},
+```
+or
+```
+npm install -g secure-dependencies
+get-bundle-name
+```
 
 # TODO
 add paranoid mode
