@@ -28,6 +28,10 @@ Then in your package.json scripts section you can call it
 
 *Become left-pad proof!*
 
+### shrinkwrap
+
+secure-dependencies will follow npm-shrinkwrap.json but if you want to use it for production and not locally, you can rename it to npm-shrinkwrap-production.json and it will work for installing the module for the bundle.
+
 ## What does it do?
 In summary:
 ```
