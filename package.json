@@ -28,7 +28,7 @@
   "dependencies": {
     "fs-extra": "^0.30.0",
     "nsp": "^2.6.1",
-    "spawn-shell": "^1.1.2",
+    "spawn-shell": "^1.1.4",
     "tar.gz": "^1.0.5"
   }
 }
