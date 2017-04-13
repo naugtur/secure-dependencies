@@ -46,7 +46,10 @@ const tarball = path.resolve(process.cwd(), common.getTarballName(dir))
 fs.removeSync(tarball)
 
 //The main purpose of this is to reject the promise based on exit code
-function promiseCommand(command, opts) {
+function promiseCommand(command) {
+    const opts = {
+        env: process.env
+    };
     console.log('>>>>', command)
     return spawnShell(command, opts).exitPromise
         .then((exitCode) => {
