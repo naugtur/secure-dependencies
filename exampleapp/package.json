@@ -6,6 +6,7 @@
   "scripts": {
     "start": "secure-dependencies"
   },
+  "private": true,
   "author": "",
   "license": "MIT",
   "dependencies": {

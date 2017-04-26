@@ -5,8 +5,10 @@ module.exports = {
         const pkg = require(path.resolve(dir, './package.json'))
         const appname = pkg.name
         const version = pkg.version
+        const nodeVersionSplit = process.versions.node.split('.')
+        const nodeV = `node${nodeVersionSplit[0]}`
 
-        return `${appname}-${version}.tgz`
+        return `${appname}-${nodeV}-${version}.tgz`
 
     }
 }

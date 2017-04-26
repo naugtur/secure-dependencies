@@ -1,6 +1,6 @@
 {
   "name": "secure-dependencies",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "bundles dependencies for maximum security of deployment",
   "main": "index.js",
   "bin": {
@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/naugtur/secure-dependencies#readme",
   "dependencies": {
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^2.1.2",
     "nsp": "^2.6.1",
-    "spawn-shell": "^1.1.4",
+    "spawn-shell": "1.1.4",
     "tar.gz": "^1.0.5"
   }
 }

@@ -24,9 +24,15 @@ Then in your package.json scripts section you can call it
 },
 ```
 
-`{appname}-{version}.tgz` is produced with all production dependencies unless `nsp check` complains.
+`{appname}-{nodeVersion}-{appVersion}.tgz` is produced with all production dependencies unless `nsp check` complains.
 
 *Become left-pad proof!*
+
+### Node support
+
+This library could support versions 0.x but it doesn't. Consider this another reason to finally upgrade.
+
+While it might work, the version of node in filename will be `0`. Trivial to fix, but I believe I should not.
 
 ### shrinkwrap
 
@@ -51,7 +57,7 @@ cd exampleapp
 npm install
 npm start
 ```
-exampleapp-1.0.0.tgz is created
+exampleapp-node6-1.0.0.tgz is created
 
 ## Get bundle name
 
