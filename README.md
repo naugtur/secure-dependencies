@@ -7,7 +7,7 @@ Creates a tarball of your app dependencies checked with node security platform. 
 
 - Even with shrinkwrap, you cannot be sure `npm install` in production will always deliver what you need
 - Running `npm install` is a defacto remote code execution vulnerability
-- Not convinced? Read this https://ponyfoo.com/articles/npm-meltdown-security-concerns
+- Not convinced? Read this https://twitter.com/o_cee/status/892306836199800836 or this https://ponyfoo.com/articles/npm-meltdown-security-concerns
 - If you keep node_modules in repo and run `npm rebuild` you still run postinstall scripts - effectively bash commands with your user credentials and access to sudo. You can turn them off, but then some binaries will not build correctly.
 - Also, `npm install` takes more time than `scp | untar`
 
