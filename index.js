@@ -31,6 +31,10 @@ fs.emptyDirSync(dir)
 //npm --prefix requires package.json to be in the location given
 fs.copySync('package.json', path.resolve(dir, './package.json'));
 
+//now npm has the package-lock
+if(fs.existsSync('package-lock.json')) {
+    fs.copySync('package-lock.json', path.resolve(dir, './package-lock.json'));
+}
 //Shrinkwrap is important, we don't want to silently skip it
 if (fs.existsSync('npm-shrinkwrap.json')) {
     fs.copySync('npm-shrinkwrap.json', path.resolve(dir, './npm-shrinkwrap.json'));
