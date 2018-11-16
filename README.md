@@ -1,7 +1,7 @@
 # secure-dependencies
 *Never run npm install in production again!*
 
-Creates a tarball of your app dependencies checked with node security platform. Just unpack it in production and you're ready to go.
+Creates a tarball of your app dependencies checked with npm audit. Just unpack it in production and you're ready to go.
 
 ## Why
 
@@ -14,14 +14,7 @@ Creates a tarball of your app dependencies checked with node security platform. 
 ## Usage
 
 ```
-npm install secure-dependencies --save-dev
-```
-
-Then in your package.json scripts section you can call it
-```
-"scripts": {
-  "bundle": "secure-dependencies"
-},
+npx -p secure-dependencies secure-dependencies
 ```
 
 `{appname}-{nodeVersion}-{appVersion}.tgz` is produced with all production dependencies unless `nsp check` complains.
@@ -44,7 +37,7 @@ In summary:
 npm install --production
 npm prune
 npm dedupe
-nsp check
+npm audit (via npm-audit-resolver)
 tar
 ```
 
@@ -65,9 +58,7 @@ If you're scripting your deployment with configuration managers (or bash) it's o
 
 secure-dependencies exposes a tiny script that generates the filename. You can use it to figure out what the bundle name is based on package.json in current directory
 ```
-"scripts": {
-  "bundle-name": "get-bundle-name"
-},
+npx -p secure-dependencies get-bundle-name
 ```
 or
 ```
@@ -78,6 +69,5 @@ get-bundle-name
 # TODO
 add paranoid mode
 add scp as artifact repository
-add deployment oneliner example
 
 # Apache-2.0 License

@@ -20,7 +20,7 @@ const spawnShell = require('spawn-shell')
 const path = require('path')
 const console = require('console')
 const fs = require('fs-extra')
-const targz = require('tar.gz')
+const tar = require('tar')
 const common = require('./common')
 
 //Prepare a temporary bundle folder
@@ -44,7 +44,14 @@ if (fs.existsSync('npm-shrinkwrap.json')) {
 if (fs.existsSync('npm-shrinkwrap-production.json')) {
     fs.copySync('npm-shrinkwrap-production.json', path.resolve(dir, './npm-shrinkwrap.json'));
 }
-
+//shrinkwrap is old news, package-lock has to be there too!
+if (fs.existsSync('package-lock.json')) {
+    fs.copySync('package-lock.json', path.resolve(dir, './package-lock.json'));
+}
+//support audit resolutions
+if (fs.existsSync('audit-resolv.json')) {
+    fs.copySync('audit-resolv.json', path.resolve(dir, './audit-resolv.json'));
+}
 const tarball = path.resolve(process.cwd(), common.getTarballName(dir))
     //Get rid of the previous tarball, because I'm afraid tar could merge instead of overwriting
 fs.removeSync(tarball)
@@ -70,8 +77,14 @@ Promise.resolve()
     //Gues what, almost nothing supports --prefix
     .then(() => promiseCommand(`cd ${dir} && npm prune --production`))
     .then(() => promiseCommand(`cd ${dir} && npm dedupe`))
-    .then(() => promiseCommand(`cd ${dir} && nsp check`))
-    .then(() => targz().compress(path.resolve(dir, 'node_modules'), tarball))
+    .then(() => promiseCommand(`cd ${dir} && check-audit`))
+    .then(() => tar.c(
+        {
+          gzip: true,
+          file: tarball
+        },
+        [path.resolve(dir, 'node_modules')]
+    ))
     .then(() => {
         fs.removeSync(dir)
         console.log('Done. Here is your tarball:')
